@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
-import IconButton from "./components/IconButton";
+import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
