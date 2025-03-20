@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
+import Map from "./screens/Map";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/colors";
 
@@ -42,6 +43,9 @@ export default function App() {
           <Stack.Screen name="AddPlaceScreen" component={AddPlace} options={{
             title: "Add New Place",
           }}/>
+          <Stack.Screen name="MapScreen" component={Map} options={{
+            title: "Pick a Location",
+          }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
