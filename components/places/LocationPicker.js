@@ -1,5 +1,5 @@
 import { View, StyleSheet, Alert, Image, Text } from "react-native";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useNavigation,
   useRoute,
@@ -13,7 +13,7 @@ import {
 
 import OutlinedButton from "../ui/OutlinedButton";
 import { Colors } from "../../constants/colors";
-import getMapPreview from "../../util/location";
+import { getMapPreview, getAddress } from "../../util/location";
 
 function LocationPicker({ onPickLocation }) {
   const navigation = useNavigation();
@@ -34,8 +34,19 @@ function LocationPicker({ onPickLocation }) {
     }
   }, [route, isFocused]);
 
+  //updates location when the user picks a location on the map
   useEffect(() => {
-    onPickLocation(pickedLocation);
+    async function handleLocationChange() {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        onPickLocation({...pickedLocation,address: address});
+      }
+    }
+
+    handleLocationChange();
   }, [pickedLocation, onPickLocation]);
 
   async function verifyPermissions() {
@@ -77,7 +88,7 @@ function LocationPicker({ onPickLocation }) {
       return;
     }
 
-    navigation.navigate("MapScreen");
+    navigation.navigate("Map");
   }
 
   let locationPreview = <Text>No location picked yet.</Text>;

@@ -5,7 +5,7 @@ import { Colors } from "../../constants/colors";
 function OutlinedButton({ onPress, icon, children }) {
   return (
     <Pressable
-      style={(pressed) => [styles.button, pressed && styles.pressed]}
+      style={({pressed}) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}
     >
       <Ionicons

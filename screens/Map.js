@@ -1,13 +1,13 @@
 import MapView, { Marker } from "react-native-maps";
 import { Alert, StyleSheet } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 import IconButton from "../components/ui/IconButton";
 
 function Map({ navigation }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <IconButton
@@ -18,7 +18,31 @@ function Map({ navigation }) {
         />
       ),
     });
-  }, [navigation, savePickedLocationHandler]);
+  }, [navigation, savePickedLocationHandler, selectedLocation]);
+  
+  function selectLocationHandler(event) {
+    const lat = event.nativeEvent.coordinate.latitude;
+    const lng = event.nativeEvent.coordinate.longitude;
+
+    setSelectedLocation({
+      lat: lat,
+      lng: lng,
+    });
+  }
+
+  const savePickedLocationHandler = useCallback(() => {
+    if (!selectedLocation) {
+      Alert.alert(
+        "No location picked",
+        "Please pick a location on the map before saving."
+      );
+      return;
+    }
+    navigation.navigate("AddPlace", {
+      lat: selectedLocation.lat,
+      lng: selectedLocation.lng,
+    });
+  }, [navigation, selectedLocation]);
 
   const initialRegion = {
     latitude: -19.9167,
@@ -26,36 +50,6 @@ function Map({ navigation }) {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
-
-  function selectLocationHandler(event) {
-    const lat = event.nativeEvent.coordinate.latitude;
-    const lng = event.nativeEvent.coordinate.longitude;
-
-    console.log("Map coords:", lat, lng);
-
-    setSelectedLocation({
-      lat: lat,
-      lng: lng,
-    });
-
-    console.log("selectedLocation:", selectedLocation);
-  }
-
-  const savePickedLocationHandler = useCallback(() => {
-    console.log("Pressed save");
-    if (!selectedLocation) {
-      console.log(selectedLocation);
-      Alert.alert(
-        "No location picked",
-        "Please pick a location on the map before saving."
-      );
-      return;
-    }
-    navigation.navigate("AddPlaceScreen", {
-      lat: selectedLocation.lat,
-      lng: selectedLocation.lng,
-    });
-  }, [navigation, selectedLocation]);
 
   return (
     <MapView
