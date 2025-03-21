@@ -2,8 +2,13 @@ import { Image, View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../constants/colors";
 
 function PlaceItem({ place , onPress}) {
+
+  function placeIdHandler() {
+    onPress(place.id);
+  }
+
   return (
-    <Pressable onPress={onPress} style={({pressed}) => [styles.item, pressed && styles.pressed]} >
+    <Pressable onPress={placeIdHandler} style={({pressed}) => [styles.item, pressed && styles.pressed]} >
       <Image source={{uri: place.imageUri}} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title} >{place.title}</Text>

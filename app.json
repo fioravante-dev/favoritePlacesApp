@@ -30,7 +30,8 @@
         {
           "cameraPermission": "The app accesses your camera to let you take pictures of your favorite places."
         }
-      ]
+      ],
+      "expo-sqlite"
     ]
   }
 }

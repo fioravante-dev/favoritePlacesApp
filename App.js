@@ -1,15 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import * as SplashScreen from "expo-splash-screen";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import Map from "./screens/Map";
 import { Colors } from "./constants/colors";
+import { useEffect, useState } from "react";
+import { init } from "./util/database";
+import PlaceDetails from "./screens/PlaceDetails";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [dbInitialized, setDbInitialized] = useState(false);
+
+  useEffect(() => {
+    init().then(() => {
+      setDbInitialized(true);
+      //console.log("Database initialized");
+    });
+  }, []);
+
   return (
     <>
       <StatusBar style="auto" />
@@ -40,11 +53,12 @@ export default function App() {
               title: "Add New Place",
             }}
           />
+          <Stack.Screen name="Map" component={Map} />
           <Stack.Screen
-            name="Map"
-            component={Map}
+            name="PlaceDetails"
+            component={PlaceDetails}
             options={{
-              title: "Pick a Location",
+              title: "Loading Place...",
             }}
           />
         </Stack.Navigator>
