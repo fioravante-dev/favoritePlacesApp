@@ -3,6 +3,7 @@
 [![React Native](https://img.shields.io/badge/React%20Native-v0.72.0-blue)](https://reactnative.dev/)
 [![Expo](https://img.shields.io/badge/Expo-SDK%2052-4630EB)](https://expo.io/)
 [![Google Maps](https://img.shields.io/badge/Google%20Maps-API-4285F4)](https://developers.google.com/maps)
+[![Expo Location](https://img.shields.io/badge/Expo%20Location-%E2%9D%A4%EF%B8%8F-4630EB)](https://docs.expo.dev/versions/latest/sdk/location/)
 
 Aplicativo para salvar lugares favoritos com:
 - Captura da localização atual
