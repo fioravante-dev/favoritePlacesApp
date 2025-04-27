@@ -63,7 +63,7 @@ Crie um arquivo `.env` na raiz do projeto:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/pedester321/favoritePlacesApp
+git clone https://github.com/fioravante-dev/favoritePlacesApp
 cd favoritePlaces
 ```
 
